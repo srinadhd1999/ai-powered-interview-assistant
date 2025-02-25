@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/Srinadh/hackathon/ai-powered-interview-assistant/components/background-wave.tsx"],"sourcesContent":["\"use client\";\r\nimport { motion } from \"framer-motion\";\r\n\r\nexport const BackgroundWave = () => {\r\n  return (\r\n    <motion.video\r\n      src=\"/wave-loop.mp4\"\r\n      autoPlay\r\n      muted\r\n      loop\r\n      controls={false}\r\n      className=\"fixed grayscale object-cover bottom-0 z-[-1] hidden md:block pointer-events-none opacity-75 \"\r\n    />\r\n  );\r\n};\r\n"],"names":[],"mappings":";;;;AACA;AADA;;;AAGO,MAAM,iBAAiB;IAC5B,qBACE,6LAAC,6LAAA,CAAA,SAAM,CAAC,KAAK;QACX,KAAI;QACJ,QAAQ;QACR,KAAK;QACL,IAAI;QACJ,UAAU;QACV,WAAU;;;;;;AAGhB;KAXa"}},
+    {"offset": {"line": 35, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
