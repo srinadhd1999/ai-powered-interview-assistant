@@ -23,8 +23,8 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
 <div className="flex">
    <Link href="/" prefetch={true}>
       <div className="flex items-center gap-2">
-         <img src="/spark_logo.png" alt="Spark Logo" className="h-8 w-8" />
-         <span className="font-semibold text-black-600">Apache Spark Interview AI</span>
+         <img src="/logo_for_agent_page.png" alt="Spark Logo" className="h-8 w-8" />
+         <span className="font-semibold text-black-600">AI Interview Assistant</span>
       </div>
    </Link>
 </div>

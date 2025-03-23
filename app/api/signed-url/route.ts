@@ -3,6 +3,7 @@ import {NextResponse} from "next/server";
 export async function GET() {
     const agentId = "uhcnhsWmhNsCn8Lv4V6u"
     const apiKey = "sk_07b3d4a992a6bb8e80cee548d2f635e7bd9f6b5246a9efe2"
+
     if (!agentId) {
         throw Error('AGENT_ID is not set')
     }
@@ -16,7 +17,7 @@ export async function GET() {
                 method: 'GET',
                 headers: {
                     'xi-api-key': apiKey,
-                }
+                }              
             }
         );
 
@@ -25,7 +26,8 @@ export async function GET() {
         }
 
         const data = await response.json();
-        return NextResponse.json({signedUrl: data.signed_url})
+        const signed_url = data.signed_url
+        return NextResponse.json({ signedUrl: signed_url});
     } catch (error) {
         console.error('Error:', error);
         return NextResponse.json({ error: 'Failed to get signed URL' }, { status: 500 });
