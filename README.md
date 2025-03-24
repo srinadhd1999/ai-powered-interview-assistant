@@ -1,5 +1,19 @@
 ## Conversational AI Demo
 
+## Prerequisites before running the application
+
+Run the following command which installs the required packages
+
+```
+npm install --force
+```
+
+Now, start the application using the following command
+
+```
+npm run dev
+```
+
 ## Setup
 
 Set up the environment variables:
