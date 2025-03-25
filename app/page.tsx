@@ -26,6 +26,7 @@ export default function Home() {
     if (skillInput.trim() && !skills.includes(skillInput.trim())) {
       setSkills([...skills, skillInput.trim()]);
       setSkillInput("");
+      setShowInterviewGrid(true);
     }
   };
 

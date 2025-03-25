@@ -13,7 +13,6 @@ import pdfParse from "pdf-parse";
 import fs from "fs";
 import path from "path";
 
-const openai = new OpenAI({ apiKey: "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", dangerouslyAllowBrowser: true });
 
 async function requestMicrophonePermission() {
     try {
