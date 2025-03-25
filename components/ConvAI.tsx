@@ -13,7 +13,6 @@ import pdfParse from "pdf-parse";
 import fs from "fs";
 import path from "path";
 
-
 async function requestMicrophonePermission() {
     try {
         await navigator.mediaDevices.getUserMedia({ audio: true });
