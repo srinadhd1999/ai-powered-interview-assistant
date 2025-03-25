@@ -8,6 +8,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Conversation } from "@11labs/client";
 import { cn } from "@/lib/utils";
 import Webcam from "react-webcam";
+import { OpenAI } from "openai";
+import pdfParse from "pdf-parse";
+import fs from "fs";
+import path from "path";
+
+const openai = new OpenAI({ apiKey: "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", dangerouslyAllowBrowser: true });
 
 async function requestMicrophonePermission() {
     try {
@@ -39,8 +45,8 @@ async function getSignedUrl(): Promise<string> {
 
 export function ConvAI() {
     const searchParams = useSearchParams();
-    const domain = searchParams.get("domain") || "General Interview";
-
+    const technology = searchParams?.get("skill") || "General Job Description";
+    const name = searchParams?.get("name") 
     const [conversation, setConversation] = useState<Conversation | null>(null);
     const [isConnected, setIsConnected] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -74,8 +80,8 @@ export function ConvAI() {
             return;
         }
         const signedUrl = await getSignedUrl();
-        const prompt = `You are Tars, a highly skilled and professional interview assistant specializing in ${domain}. Your job is to conduct structured, engaging, and insightful mock interviews tailored to the candidate's experience level. Begin with an introduction and an initial question about ${domain}. Adapt the interview dynamically, switching between easy, medium, and hard questions based on the candidate's responses.
-        Assess their answers in real time, providing constructive feedback and hints when necessary. If the candidate struggles, guide them towards the correct answer while maintaining a professional and encouraging tone. At the end of the session, provide a comprehensive performance evaluation, highlighting strengths and areas for improvement. If the candidate says, 'I'm done' or 'Stop the interview,' conclude the session immediately and summarize their performance.`;
+        const prompt = `You are Tars, a highly skilled and professional interview assistant specializing in ${technology}. Your job is to conduct structured, engaging, and insightful mock interviews tailored to the candidate's experience level. Begin with an introduction and an initial question about ${technology}. Adapt the interview dynamically, switching between easy, medium, and hard questions based on the candidate's responses.
+        Assess their answers in real time, providing constructive feedback and hints when necessary. Use their name ${name} in the middle of conversation to make the conversation more interactive and they will use your name Tars during the conversation. If the candidate struggles, guide them towards the correct answer while maintaining a professional and encouraging tone. At the end of the session, provide a comprehensive performance evaluation, highlighting strengths and areas for improvement. If the candidate says, 'I'm done' or 'Stop the interview,' conclude the session immediately and summarize their performance.`;
 
         const conversation = await Conversation.startSession({
             signedUrl: signedUrl,
@@ -85,7 +91,7 @@ export function ConvAI() {
                     prompt: {
                         prompt: prompt,
                     },
-                    firstMessage: `Welcome to your mock interview. My name is Tars, and I'll be your professional interview assistant today. This session will be focused on the ${domain} domain. I will ask you a series of technical and behavioral questions, gradually increasing in difficulty. Please try to answer in detail, and feel free to ask for clarification if needed. Let’s begin—tell me a bit about yourself and your experience in ${domain}.`
+                    firstMessage: `Welcome to your mock interview, ${name}. My name is Tars, and I'll be your professional interview assistant today. This session will be focused on the ${technology}. I will ask you a series of technical questions, gradually increasing in difficulty. Please try to answer in detail, and feel free to ask for clarification if needed. Let's begin—tell me a bit about yourself and your experience in ${technology}.`
                 },
             },
             onConnect: () => {
@@ -134,7 +140,7 @@ export function ConvAI() {
                             {isConnected ? (
                                 isSpeaking ? `Interview Expert is speaking` : "Interview Expert is listening"
                             ) : (
-                                `Are you ready for ${domain} Mock Interview?`
+                                `Are you ready for ${technology} Mock Interview?`
                             )}
                         </CardTitle>
                     </CardHeader>
@@ -189,7 +195,7 @@ export function ConvAI() {
                             disabled={conversation !== null && isConnected}
                             onClick={startConversation}
                         >
-                            Start Your {domain} Mock Interview
+                            Start Your {technology} Mock Interview
                         </Button>
                         <Button
                             variant={"outline"}
@@ -198,7 +204,7 @@ export function ConvAI() {
                             disabled={conversation === null && !isConnected}
                             onClick={endConversation}
                         >
-                            End Your {domain} Mock Interview
+                            End Your {technology} Mock Interview
                         </Button>
                     </div>
                 </CardContent>
