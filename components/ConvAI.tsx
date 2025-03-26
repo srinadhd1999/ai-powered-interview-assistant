@@ -8,10 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Conversation } from "@11labs/client";
 import { cn } from "@/lib/utils";
 import Webcam from "react-webcam";
-import { OpenAI } from "openai";
-import pdfParse from "pdf-parse";
-import fs from "fs";
-import path from "path";
 
 async function requestMicrophonePermission() {
     try {
