@@ -100,7 +100,7 @@ export default function Home() {
         🏆 Are You Ready to Test Your Skills?
         </h1>
         <p className="text-xl text-muted-foreground mt-2">
-        Think you're prepared for your next interview? Put yourself to the test with our AI-powered mock interview! Every session gets you one step closer to landing your dream job!
+        Think you are prepared for your next interview? Put yourself to the test with our AI-powered mock interview! Every session gets you one step closer to landing your dream job!
          </p>
       </div>
       <p className="text-2xl font-semibold text-primary mt-4">
