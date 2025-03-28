@@ -1,8 +1,8 @@
 import {NextResponse} from "next/server";
 
 export async function GET() {
-    const agentId = process.env.ELEVEN_LABS_AGENT_ID
-    const apiKey = process.env.ELEVEN_LABS_API_KEY
+    const agentId = "uhcnhsWmhNsCn8Lv4V6u"
+    const apiKey = "sk_07b3d4a992a6bb8e80cee548d2f635e7bd9f6b5246a9efe2"
 
     if (!agentId) {
         throw Error('AGENT_ID is not set')

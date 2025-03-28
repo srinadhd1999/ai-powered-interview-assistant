@@ -4,8 +4,8 @@ import {BackgroundWave} from "@/components/background-wave";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Spark Interview Assistant",
-    description: "Your AI powered Spark Interview Assistant"
+    title: "Mock Interview Assistant",
+    description: "Your AI powered Mock Interview Assistant"
 };
 
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode }>) {
@@ -23,7 +23,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
    <Link href="/" prefetch={true}>
       <div className="flex items-center gap-2">
          <img src="/logo_for_agent_page.png" alt="Spark Logo" className="h-9 w-9" />
-         <span className="font-semibold text-black-600 text-2xl">AI Powered Mock Interview Assistant</span>
+         <span className="font-semibold text-black-600 text-1xl">AI Powered Mock Interview Assistant</span>
       </div>
    </Link>
 </div>

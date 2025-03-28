@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 export default function Home() {
+  const [name, setName] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [jobDescription, setJobDescription] = useState<string>("");
@@ -73,7 +74,7 @@ export default function Home() {
     <div className="flex flex-col items-center min-h-screen p-4">
       <br></br><br></br><br></br>
       <div className="text-center max-w-2xl mb-8">
-        <h1 className="text-3xl font-bold text-primary mb-4">
+        <h1 className="text-2xl font-bold text-primary mb-4">
           🚀 Elevate Your Career with AI-Powered Mock Interviews!
         </h1>
         <p className="text-xl text-muted-foreground">
@@ -81,7 +82,7 @@ export default function Home() {
           Get personalized, skill-based mock interviews and improve your performance with AI-driven insights!
         </p>
         <br></br><br></br>
-        <h1 className="text-3xl font-bold text-primary mb-4">
+        <h1 className="text-2xl font-bold text-primary mb-4">
           🤔 Why Should You Give Mock Interviews?
         </h1>
         <p className="text-xl text-muted-foreground mt-2">
@@ -89,14 +90,14 @@ export default function Home() {
           Practicing with AI ensures that you receive instant feedback and continuous improvement!
         </p>
         <br></br><br></br>
-        <h1 className="text-3xl font-bold text-primary mb-4">
+        <h1 className="text-2xl font-bold text-primary mb-4">
          🤖 How Does AI Make Your Interview Practice Better?
         </h1>
         <p className="text-xl text-muted-foreground mt-2">
         Unlike traditional mock interviews, our AI Interview Assistant provides real-time, unbiased feedback, helps identify improvement areas, and adapts questions to your skill level—just like a real interviewer!
          </p>
          <br></br><br></br>
-        <h1 className="text-3xl font-bold text-primary mb-4">
+        <h1 className="text-2xl font-bold text-primary mb-4">
         🏆 Are You Ready to Test Your Skills?
         </h1>
         <p className="text-xl text-muted-foreground mt-2">
@@ -106,6 +107,14 @@ export default function Home() {
       <p className="text-2xl font-semibold text-primary mt-4">
         Start practicing today! 🎯
       </p>
+
+      <div>
+        <br></br><br></br>
+        <p className="text-2xl font-semibold text-primary mt-4">
+          Fill in the below form to give Domain based Mock Interview
+        </p>
+      </div>
+
       <div className="mt-10"></div>
       <div className="bg-card p-8 rounded-lg shadow-lg text-center w-full max-w-md">
         <h1 className="text-2xl font-bold text-primary">Welcome</h1>
@@ -152,10 +161,27 @@ export default function Home() {
         {uploadSuccess && <p className="text-green-600 mt-2">✅ Resume uploaded successfully!</p>}
       </div>
 
+      <div>
+        <br></br><br></br>
+        <p className="text-2xl font-semibold text-primary mt-4">
+          Fill in the below form to give Skill based Mock Interviews
+        </p>
+      </div>
+
       {/* Skills Section (Always Visible) */}
       <div className="bg-card p-6 rounded-lg shadow-lg text-center w-full max-w-md mt-6">
         <h2 className="text-xl font-semibold text-primary mb-2">Add the Skills for which you want to give mock interviews</h2>
+
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          placeholder="Enter your name"
+          className="border border-input p-2 rounded-md mb-4 w-full bg-background text-foreground"
+        />
+
         <div className="flex items-center gap-2 mb-4">
+          
           <input
             type="text"
             value={skillInput}
