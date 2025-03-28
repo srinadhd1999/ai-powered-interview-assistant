@@ -230,9 +230,9 @@ Return your answer in the following JSON format:
 if __name__ == "__main__":
     jd = sys.argv[1]
     # Replace with your actual file path, job description text, and your OpenAI API key.
-    pdf_path = "//Users//smukka//Documents//Hackathon//ai-powered-interview-assistant//public//resume.pdf"  # Update this with your resume PDF path.
-    openai_api_key = "*******"  # Update this with your OpenAI API key.
-
+    pdf_path = "public/resume.pdf"  # Update this with your resume PDF path.
+    #"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" 
+    openai_api_key = "*******"
     
     # Example job description. You can modify this as needed.
     job_description = jd
@@ -253,7 +253,7 @@ if __name__ == "__main__":
     #print("===== DETERMINED DOMAIN INFORMATION =====")
     #print(json.dumps(domain_info, indent=2))
     merged = {**extracted_info, **domain_info}
-    with open("//Users//smukka//Documents//Hackathon//ai-powered-interview-assistant//data//ResumeJd.json", "w") as f:
+    with open("data/ResumeJd.json", "w") as f:
         json.dump(merged, f, indent=2)
     
     extracted_info

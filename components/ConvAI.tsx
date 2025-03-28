@@ -203,6 +203,11 @@ export function ConvAI() {
             Assess their answers in real time, providing constructive feedback and hints when necessary. Use their name ${name} in the middle of conversation to make the conversation more interactive and they will use your name Neo during the conversation. If the candidate struggles, guide them towards the correct answer while maintaining a professional and encouraging tone. At the end of the session, provide a comprehensive performance evaluation, highlighting strengths and areas for improvement. If the candidate says, 'I'm done' or 'Stop the interview,' conclude the session immediately and summarize their performance. also write the feedback to a file named feedback`;
     
         }
+
+    const domain = resumeData.domain
+    const first_message = technology === "Resume Based"
+    ? `Welcome to your mock interview, ${name}. My name is Neo, and I'll be your professional interview assistant today. This session will be focused on the ${domain}. I will ask you a series of technical questions, gradually increasing in difficulty. Please try to answer in detail, and feel free to ask for clarification if needed. Let's begin—tell me a bit about yourself and your experience in ${domain}.`
+    : `Welcome to your mock interview, ${name}. My name is Neo, and I'll be your professional interview assistant today. This session will be focused on the ${technology}. I will ask you a series of technical questions, gradually increasing in difficulty. Please try to answer in detail, and feel free to ask for clarification if needed. Let's begin—tell me a bit about yourself and your experience in ${technology}.`;
         
         const conversation = await Conversation.startSession({
             signedUrl: signedUrl,
@@ -212,7 +217,7 @@ export function ConvAI() {
                     prompt: {
                         prompt: prompt,
                     },
-                    firstMessage: `Welcome to your mock interview, ${name}. My name is Neo, and I'll be your professional interview assistant today. This session will be focused on the ${technology}. I will ask you a series of technical questions, gradually increasing in difficulty. Please try to answer in detail, and feel free to ask for clarification if needed. Let's begin—tell me a bit about yourself and your experience in ${technology}.`
+                    firstMessage: first_message
                 },
             },
             onConnect: () => {
@@ -249,7 +254,7 @@ export function ConvAI() {
         setConversation(null);
         setIsConnected(false);
         setStartTime(null);
-        setElapsedTime(elapsedTime);
+        setElapsedTime("00:00");
     }
 
     function toggleCamera() {
