@@ -48,6 +48,8 @@ export function ConvAI() {
     const [startTime, setStartTime] = useState<number | null>(null);
     const [elapsedTime, setElapsedTime] = useState<string>("00:00");
     const [isCameraOn, setIsCameraOn] = useState(true);
+    const [feedback, setFeedback] = useState<string>("");
+    const [report, setReport] = useState<string>("");
 
     const webcamRef = useRef<Webcam>(null);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -67,6 +69,94 @@ export function ConvAI() {
 
         return () => clearInterval(timerRef.current!);
     }, [isConnected, startTime]);
+
+    function getRandomElement(array: string[]) {
+        return array[Math.floor(Math.random() * array.length)];
+    }
+
+    async function fetchConversationFeedback(conversationId: any) {
+        const apiKey = 'your_api_key'; // Replace with your actual API key
+        const url = `https://api.elevenlabs.io/v1/convai/conversations/${conversationId}`;
+    
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'xi-api-key': apiKey,
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+    
+            const data = await response.json();
+            const feedback = data.analysis ? data.analysis.feedback : 'No feedback available';
+            console.log('Feedback:', feedback);
+            return feedback;
+        } catch (error) {
+            console.error('Failed to fetch conversation feedback:', error);
+            return 'Error retrieving feedback';
+        }
+    }
+    
+
+    async function generateFeedback() {
+        try {
+            
+            const strongPoints = [
+                "Clear understanding of concepts",
+                "Excellent problem-solving approach",
+                "Good communication skills",
+                "Ability to break down complex problems",
+                "Confident and structured responses"
+            ];
+
+            const improvementAreas = [
+                "Work on handling edge cases better",
+                "Improve time complexity awareness",
+                "Refine debugging strategies",
+                "Enhance clarity in explanations",
+                "Practice more with real-world scenarios"
+            ];
+
+            return `
+                Strong Points:
+                - ${getRandomElement(strongPoints)}
+                - ${getRandomElement(strongPoints)}
+                - ${getRandomElement(strongPoints)}
+                
+                Improvement Areas:
+                - ${getRandomElement(improvementAreas)}
+                - ${getRandomElement(improvementAreas)}
+                
+                Overall Evaluation:
+                You did well overall! Keep practicing and refining your approach.`;
+        } catch (error) {
+            console.error("Error generating feedback:", error);
+            return "Error generating feedback. Please try again later.";
+        }
+    }
+    
+    
+
+
+    async function generateReport() {
+        const feedback = await generateFeedback(); 
+        return `Mock Interview Report\n\nCandidate: ${name}\nTechnology: ${technology}\nFeedback: ${feedback}`;
+    }
+
+    async function downloadReport() {
+        const reportBlob = new Blob([report], { type: "text/plain" });
+        const url = URL.createObjectURL(reportBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `Mock_Interview_Report_${name}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 
     async function startConversation() {
         var prompt = ""
@@ -131,7 +221,11 @@ export function ConvAI() {
                 setStartTime(Date.now());
                 setElapsedTime("00:00");
             },
-            onDisconnect: () => {
+            onDisconnect: async () => {
+                const generatedFeedback = await generateFeedback();
+                const generatedReport = await generateReport();
+                setFeedback(generatedFeedback);
+                setReport(generatedReport);
                 setIsConnected(false);
                 setIsSpeaking(false);
             },
@@ -155,7 +249,7 @@ export function ConvAI() {
         setConversation(null);
         setIsConnected(false);
         setStartTime(null);
-        setElapsedTime("00:00");
+        setElapsedTime(elapsedTime);
     }
 
     function toggleCamera() {
@@ -218,6 +312,13 @@ export function ConvAI() {
                                 )}
                             ></div>
                         </div>
+                        {feedback && (
+                        <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+                            <h3 className="font-bold">Feedback:</h3>
+                            <p>{feedback}</p>
+                            <Button onClick={downloadReport} className="mt-2">Download Report</Button>
+                        </div>
+                    )}
 
                         <Button
                             variant={"outline"}

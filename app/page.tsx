@@ -15,6 +15,9 @@ export default function Home() {
   const [skillInput, setSkillInput] = useState<string>("");
   const [showInterviewGrid, setShowInterviewGrid] = useState<boolean>(false);
   const [response, setResponse] = useState(null);
+  const skillsList = ["Java", "Python", "Scala", "Big Data", "Machine Learning", "System Design", "Data Engineering", "AWS", "Spark", "Kafka"];
+  const [selectedSkill, setSelectedSkill] = useState("");
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -27,8 +30,8 @@ export default function Home() {
   };
 
   const handleAddSkill = () => {
-    if (skillInput.trim() && !skills.includes(skillInput.trim())) {
-      setSkills([...skills, skillInput.trim()]);
+    if (selectedSkill && !skills.includes(selectedSkill)) {
+      setSkills([...skills, selectedSkill]);
       setSkillInput("");
       setShowInterviewGrid(true);
     }
@@ -239,14 +242,17 @@ export default function Home() {
         />
 
         <div className="flex items-center gap-2 mb-4">
-          
-          <input
-            type="text"
-            value={skillInput}
-            onChange={(e) => setSkillInput(e.target.value)}
-            placeholder="Enter a skill"
+          <select
+            value={selectedSkill}
+            onChange={(e) => setSelectedSkill(e.target.value)}
             className="border border-input p-2 rounded-md w-full bg-background text-foreground"
-          />
+          >
+            <option value="" disabled>Select a skill</option>
+            {skillsList.map((skill) => (
+              <option key={skill} value={skill}>{skill}</option>
+            ))}
+          </select>
+          
           <button
             onClick={handleAddSkill}
             className="px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-opacity-80"
