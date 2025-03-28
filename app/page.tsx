@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
 
 export default function Home() {
   const [name, setName] = useState<string>("");
@@ -74,49 +76,65 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center min-h-screen p-4">
       <br></br><br></br><br></br>
-      <div className="text-center max-w-2xl mb-8">
-        <h1 className="text-2xl font-bold text-primary mb-4">
-          🚀 Elevate Your Career with AI-Powered Mock Interviews!
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Our AI Interview Assistant simulates real interview scenarios tailored to your job role, helping you gain confidence and ace your interviews.
-          Get personalized, skill-based mock interviews and improve your performance with AI-driven insights!
-        </p>
-        <br></br><br></br>
-        <h1 className="text-2xl font-bold text-primary mb-4">
-          🤔 Why Should You Give Mock Interviews?
-        </h1>
-        <p className="text-xl text-muted-foreground mt-2">
-          Mock interviews help you reduce anxiety, refine your responses, and get comfortable with real-world interview scenarios.
-          Practicing with AI ensures that you receive instant feedback and continuous improvement!
-        </p>
-        <br></br><br></br>
-        <h1 className="text-2xl font-bold text-primary mb-4">
-         🤖 How Does AI Make Your Interview Practice Better?
-        </h1>
-        <p className="text-xl text-muted-foreground mt-2">
-        Unlike traditional mock interviews, our AI Interview Assistant provides real-time, unbiased feedback, helps identify improvement areas, and adapts questions to your skill level—just like a real interviewer!
-         </p>
-         <br></br><br></br>
-        <h1 className="text-2xl font-bold text-primary mb-4">
-        🏆 Are You Ready to Test Your Skills?
-        </h1>
-        <p className="text-xl text-muted-foreground mt-2">
-        Think you are prepared for your next interview? Put yourself to the test with our AI-powered mock interview! Every session gets you one step closer to landing your dream job!
-         </p>
-      </div>
-      <p className="text-xl font-semibold text-primary mt-4">
-        Start practicing today! 🎯
-      </p>
+      <div className="text-center max-w-2xl mb-8 mx-auto">
+        {[
+          { 
+            title: "🚀 Elevate Your Career with AI-Powered Mock Interviews!", 
+            text: "Our AI Interview Assistant simulates real interview scenarios tailored to your job role, helping you gain confidence and ace your interviews. Get personalized, skill-based mock interviews and improve your performance with AI-driven insights!" 
+          },
+          { 
+            title: "🤔 Why Should You Give Mock Interviews?", 
+            text: "Mock interviews help you reduce anxiety, refine your responses, and get comfortable with real-world interview scenarios. Practicing with AI ensures that you receive instant feedback and continuous improvement!" 
+          },
+          { 
+            title: "🤖 How Does AI Make Your Interview Practice Better?", 
+            text: "Unlike traditional mock interviews, our AI Interview Assistant provides real-time, unbiased feedback, helps identify improvement areas, and adapts questions to your skill level—just like a real interviewer!" 
+          },
+          { 
+            title: "🏆 Are You Ready to Test Your Skills?", 
+            text: "Think you are prepared for your next interview? Put yourself to the test with our AI-powered mock interview! Every session gets you one step closer to landing your dream job!" 
+          }
+        ].map((section, index) => (
+          <motion.div
+            key={index}
+            initial={{ x: index % 2 === 0 ? -100 : 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: index * 0.3 }}
+          >
+            <h1 className="text-2xl font-bold text-primary mb-4">{section.title}</h1>
+            <p className="text-xl text-muted-foreground">{section.text}</p>
+            <br></br>
+          </motion.div>
+        ))}
 
+        <motion.p
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="text-xl font-semibold text-primary mt-8"
+        >
+          Start practicing today! 🎯
+        </motion.p>
+      </div>
+
+      <motion.div
+        initial={{ x: -200, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
       <div>
-        <br></br><br></br>
         <p className="text-2xl font-semibold text-primary mt-4">
           Fill in the below form to give Domain based Mock Interview!!!
         </p>
       </div>
+      </motion.div>
 
       <div className="mt-10"></div>
+      <motion.div
+        initial={{ x: 200, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
       <div className="bg-card p-8 rounded-lg shadow-lg text-center w-full max-w-md">
         <h1 className="text-2xl font-bold text-primary">Welcome</h1>
         <p className="text-muted-foreground mb-4">Fill in the details to proceed.</p>
@@ -168,14 +186,26 @@ export default function Home() {
           </button>
         </>)}
       </div>
+      </motion.div>
 
+      <motion.div
+        initial={{ x: -200, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
       <div>
-        <br></br><br></br>
+        <br></br>
         <p className="text-2xl font-semibold text-primary mt-4">
           Fill in the below form to give Skill based Mock Interviews!!!
         </p>
       </div>
+      </motion.div>
 
+      <motion.div
+        initial={{ x: -200, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
       {/* Skills Section (Always Visible) */}
       <div className="bg-card p-6 rounded-lg shadow-lg text-center w-full max-w-md mt-6">
         <h2 className="text-xl font-semibold text-primary mb-2">Add the Skills for which you want to give mock interviews</h2>
@@ -223,6 +253,7 @@ export default function Home() {
           ))}
         </div>
       </div>
+      </motion.div>
 
       {/* Skill-Based Mock Interview Grid */}
       {showInterviewGrid && skills.length > 0 && (
