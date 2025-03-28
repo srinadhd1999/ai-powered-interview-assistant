@@ -5,7 +5,7 @@ export default function handler(req, res) {
 
   if (req.method === "GET") {
     
-    exec(`python //Users//smukka//Documents//Hackathon//ai-powered-interview-assistant//components//jd_accurate.py "${jobDescp}"`, (error, stdout, stderr) => {
+    exec(`python components/jd_accurate.py "${jobDescp}"`, (error, stdout, stderr) => {
       if (error) {
         console.error(stderr);
         return res.status(500).json({ error: "Python execution failed" });
