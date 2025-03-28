@@ -22,10 +22,14 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
 <div className="flex">
    <Link href="/" prefetch={true}>
       <div className="flex items-center gap-2">
-         <img src="/logo_for_agent_page.png" alt="Spark Logo" className="h-9 w-9" />
+         <img src="/logo_for_agent_page.png" alt="Logo" className="h-9 w-9" />
          <span className="font-semibold text-black-600 text-1xl">AI Powered Mock Interview Assistant</span>
       </div>
    </Link>
+</div>
+
+<div className="flex justify-end items-center">
+    <img src="/payoda.png" alt="Top Right Image" className="h-10 w-30" />
 </div>
 
                 {/* <div className={"flex gap-4 justify-end"}>

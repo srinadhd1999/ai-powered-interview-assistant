@@ -231,7 +231,6 @@ if __name__ == "__main__":
     jd = sys.argv[1]
     # Replace with your actual file path, job description text, and your OpenAI API key.
     pdf_path = "public/resume.pdf"  # Update this with your resume PDF path.
-    #"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" 
     openai_api_key = "*******"
     
     # Example job description. You can modify this as needed.
@@ -255,6 +254,5 @@ if __name__ == "__main__":
     merged = {**extracted_info, **domain_info}
     with open("data/ResumeJd.json", "w") as f:
         json.dump(merged, f, indent=2)
-    
     extracted_info
     
