@@ -36,7 +36,8 @@ export default function Home() {
   };
 
   const openConvAI = (skill: string) => {
-    window.open(`/convai?skill=${encodeURIComponent(skill)}&name=${encodeURIComponent(firstName)}`, "_blank");
+    const displayName = firstName || name; 
+    window.open(`/convai?skill=${encodeURIComponent(skill)}&name=${encodeURIComponent(displayName)}`, "_blank");
   };
 
   const handleSubmit = async () => {
@@ -104,14 +105,14 @@ export default function Home() {
         Think you are prepared for your next interview? Put yourself to the test with our AI-powered mock interview! Every session gets you one step closer to landing your dream job!
          </p>
       </div>
-      <p className="text-2xl font-semibold text-primary mt-4">
+      <p className="text-xl font-semibold text-primary mt-4">
         Start practicing today! 🎯
       </p>
 
       <div>
         <br></br><br></br>
         <p className="text-2xl font-semibold text-primary mt-4">
-          Fill in the below form to give Domain based Mock Interview
+          Fill in the below form to give Domain based Mock Interview!!!
         </p>
       </div>
 
@@ -158,13 +159,20 @@ export default function Home() {
           {loading ? "Uploading..." : "Upload Resume"}
         </button>
 
-        {uploadSuccess && <p className="text-green-600 mt-2">✅ Resume uploaded successfully!</p>}
+        {uploadSuccess && (
+            <>
+            <p className="text-green-600 mt-2">✅ Resume uploaded successfully!</p>
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-full mt-4">
+                Start Your Mock Interview
+          </button>
+        </>)}
       </div>
 
       <div>
         <br></br><br></br>
         <p className="text-2xl font-semibold text-primary mt-4">
-          Fill in the below form to give Skill based Mock Interviews
+          Fill in the below form to give Skill based Mock Interviews!!!
         </p>
       </div>
 
@@ -174,8 +182,8 @@ export default function Home() {
 
         <input
           type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           placeholder="Enter your name"
           className="border border-input p-2 rounded-md mb-4 w-full bg-background text-foreground"
         />
