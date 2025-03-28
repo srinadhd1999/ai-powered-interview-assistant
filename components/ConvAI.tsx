@@ -1,5 +1,5 @@
 "use client";
-
+import resumeData from  "@/data/ResumeJd.json"
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 import * as React from "react";
@@ -39,8 +39,9 @@ async function getSignedUrl(): Promise<string> {
 
 export function ConvAI() {
     const searchParams = useSearchParams();
-    const technology = searchParams?.get("skill") || "General Job Description";
+    const technology = searchParams?.get("skill") || "Resume Based";
     const name = searchParams?.get("name") 
+    const jd = searchParams?.get("jobDescp")
     const [conversation, setConversation] = useState<Conversation | null>(null);
     const [isConnected, setIsConnected] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -68,15 +69,51 @@ export function ConvAI() {
     }, [isConnected, startTime]);
 
     async function startConversation() {
+        var prompt = ""
         const hasPermission = await requestMicrophonePermission();
         if (!hasPermission) {
             alert("No permission");
             return;
         }
-        const signedUrl = await getSignedUrl();
-        const prompt = `You are Tars, a highly skilled and professional interview assistant specializing in ${technology}. Your job is to conduct structured, engaging, and insightful mock interviews tailored to the candidate's experience level. Begin with an introduction and an initial question about ${technology}. Adapt the interview dynamically, switching between easy, medium, and hard questions based on the candidate's responses.
-        Assess their answers in real time, providing constructive feedback and hints when necessary. Use their name ${name} in the middle of conversation to make the conversation more interactive and they will use your name Tars during the conversation. If the candidate struggles, guide them towards the correct answer while maintaining a professional and encouraging tone. At the end of the session, provide a comprehensive performance evaluation, highlighting strengths and areas for improvement. If the candidate says, 'I'm done' or 'Stop the interview,' conclude the session immediately and summarize their performance.`;
 
+        const signedUrl = await getSignedUrl();
+        if(technology == "Resume Based") {
+            const experiences = resumeData.experiences
+            const domain = resumeData.domain
+            const skills = resumeData.skills
+            const projects = resumeData.projects
+            prompt = `
+            You are Neo, a highly skilled and professional interview assistant specializing in the ${domain} domain.
+            Your role is to conduct an engaging and structured mock interview with the candidate named ${name}, based on the following information:
+            
+            🔹 **Experience:** ${experiences.join(", ")}
+            🔹 **Projects:** ${projects.join(", ")}
+            🔹 **Skills:** ${skills.join(", ")}
+            🔹 **Job Description:** ${jd}
+            
+            
+            Begin the interview with an introduction and an initial question based on their skills and domain expertise.
+            Adapt the questions dynamically across easy, medium, and hard levels, depending on the candidate's responses.
+            Ask questions specifically related to their past experiences and projects where possible.
+            
+            **During the interview:**
+            - Use the candidate's name (${name}) frequently to make the conversation interactive.
+            - If the candidate says 'I'm done' or 'Stop the interview', conclude immediately with a summary.
+            - If the candidate struggles, give hints and guide them toward the correct answer.
+            - Provide feedback after every answer, mentioning strengths and improvement areas.
+            
+            **At the end of the session:**
+            - Give a detailed performance evaluation mentioning their strong areas and areas to work on.
+            -also write the feedback to a file named feedback. 
+            Make the interview natural, human-like, and professional.
+            `;
+        }
+        else{
+            prompt = `You are Neo, a highly skilled and professional interview assistant specializing in ${technology}. Your job is to conduct structured, engaging, and insightful mock interviews tailored to the candidate's experience level. Begin with an introduction and an initial question about ${technology}. Adapt the interview dynamically, switching between easy, medium, and hard questions based on the candidate's responses.
+            Assess their answers in real time, providing constructive feedback and hints when necessary. Use their name ${name} in the middle of conversation to make the conversation more interactive and they will use your name Neo during the conversation. If the candidate struggles, guide them towards the correct answer while maintaining a professional and encouraging tone. At the end of the session, provide a comprehensive performance evaluation, highlighting strengths and areas for improvement. If the candidate says, 'I'm done' or 'Stop the interview,' conclude the session immediately and summarize their performance. also write the feedback to a file named feedback`;
+    
+        }
+        
         const conversation = await Conversation.startSession({
             signedUrl: signedUrl,
             overrides: {
@@ -85,7 +122,7 @@ export function ConvAI() {
                     prompt: {
                         prompt: prompt,
                     },
-                    firstMessage: `Welcome to your mock interview, ${name}. My name is Tars, and I'll be your professional interview assistant today. This session will be focused on the ${technology}. I will ask you a series of technical questions, gradually increasing in difficulty. Please try to answer in detail, and feel free to ask for clarification if needed. Let's begin—tell me a bit about yourself and your experience in ${technology}.`
+                    firstMessage: `Welcome to your mock interview, ${name}. My name is Neo, and I'll be your professional interview assistant today. This session will be focused on the ${technology}. I will ask you a series of technical questions, gradually increasing in difficulty. Please try to answer in detail, and feel free to ask for clarification if needed. Let's begin—tell me a bit about yourself and your experience in ${technology}.`
                 },
             },
             onConnect: () => {

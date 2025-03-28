@@ -1,0 +1,41 @@
+{
+  "experiences": [
+    "Data Engineer at Payoda Technologies",
+    "Data Engineer at Modak Analytics"
+  ],
+  "skills": [
+    "Windows",
+    "Kafka",
+    "Kubernetes",
+    "AWS(Glue, EMR, Lambda)",
+    "PostgreSQL",
+    "Azure DevOps",
+    "Docker",
+    "MySQL",
+    "Hive",
+    "GitHub",
+    "SQL",
+    "Spark",
+    "Hadoop",
+    "Databricks",
+    "GCP(BigQuery, GCS, Workflows, Google Batch, GKE)",
+    "Python",
+    "Pyspark",
+    "Microsoft Azure",
+    "Linux",
+    "Airflow",
+    "Java",
+    "Shell",
+    "Scala",
+    "Data Structures and Algorithms"
+  ],
+  "projects": [
+    "Address Automation and Maintenance",
+    "Unstructured Automation",
+    "Structured Curation",
+    "Automated Metrics Monitoring"
+  ],
+  "hobbies": [],
+  "domain": "Data Engineering",
+  "rationale": "The candidate's experiences as a Data Engineer at Payoda Technologies and Modak Analytics, along with their skills in various data engineering technologies such as Kafka, Kubernetes, AWS, PostgreSQL, Spark, Hadoop, Python, and more align well with the job description that likely involves working with data pipelines, data processing, and cloud technologies. The candidate's projects also reflect a focus on automation and data curation, which are key aspects of data engineering roles."
+}

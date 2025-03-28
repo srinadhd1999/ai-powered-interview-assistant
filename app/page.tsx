@@ -14,6 +14,7 @@ export default function Home() {
   const [skills, setSkills] = useState<string[]>([]);
   const [skillInput, setSkillInput] = useState<string>("");
   const [showInterviewGrid, setShowInterviewGrid] = useState<boolean>(false);
+  const [response, setResponse] = useState(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -37,6 +38,11 @@ export default function Home() {
     setSkills(skills.filter((skill) => skill !== skillToRemove));
   };
 
+  const openConvAIV2 = (jd:string) => {
+    const displayName = firstName || name; 
+    window.open(`/convai?jobDescp=${jd}&name=${encodeURIComponent(displayName)}`, "_blank");
+  };
+
   const openConvAI = (skill: string) => {
     const displayName = firstName || name; 
     window.open(`/convai?skill=${encodeURIComponent(skill)}&name=${encodeURIComponent(displayName)}`, "_blank");
@@ -47,6 +53,7 @@ export default function Home() {
       alert("Please fill in all fields and upload a resume.");
       return;
     }
+    console.log("inside the handleSubmit")
 
     setLoading(true);
     setUploadSuccess(false);
@@ -56,7 +63,8 @@ export default function Home() {
     formData.append("lastName", lastName);
     formData.append("jobDescription", jobDescription);
     formData.append("resume", resume);
-
+    console.log("Got the form dataaaa")
+    console.log(jobDescription)
     try {
       const response = await fetch("/api/upload-resume", {
         method: "POST",
@@ -71,6 +79,17 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
+    
+    try {
+      const res = await fetch(`/api/executePy?jobDescp=${jobDescription}`);
+      const data = await res.json();
+      console.log(data)
+      setResponse(data); 
+    } catch (err) {
+      console.error("Error fetching:", err);
+    }
+    console.log("End of the code block")
+    console.log(JSON.stringify(response,null,2))
   };
 
   return (
@@ -181,6 +200,7 @@ export default function Home() {
             <>
             <p className="text-green-600 mt-2">✅ Resume uploaded successfully!</p>
             <button
+              onClick={() => openConvAIV2(jobDescription)}
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-full mt-4">
                 Start Your Mock Interview
           </button>
