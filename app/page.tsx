@@ -136,8 +136,8 @@ export default function Home() {
         transition={{ duration: 0.8 }}
       >
       <div className="bg-card p-8 rounded-lg shadow-lg text-center w-full max-w-md">
-        <h1 className="text-2xl font-bold text-primary">Welcome</h1>
-        <p className="text-muted-foreground mb-4">Fill in the details to proceed.</p>
+        <h1 className="text-2l text-primary">Fill in the following details to proceed.</h1>
+        <br></br>
         <input
           type="text"
           value={firstName}
@@ -208,7 +208,7 @@ export default function Home() {
       >
       {/* Skills Section (Always Visible) */}
       <div className="bg-card p-6 rounded-lg shadow-lg text-center w-full max-w-md mt-6">
-        <h2 className="text-xl font-semibold text-primary mb-2">Add the Skills for which you want to give mock interviews</h2>
+        <h2 className="text-xl font- text-primary mb-2">Add the Skills for which you want to give mock interviews</h2>
 
         <input
           type="text"
